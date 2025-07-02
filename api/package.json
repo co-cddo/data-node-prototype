@@ -1,0 +1,16 @@
+{
+  "name": "api",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js"
+  },
+  "dependencies": {
+    "express": "^4.x",
+    "aws-sdk": "^2.x",
+    "jsonwebtoken": "^9.x",
+    "dotenv": "^16.x"
+  },
+  "devDependencies": {
+    "nodemon": "^3.x"
+  }
+}
