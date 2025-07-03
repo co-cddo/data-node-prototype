@@ -1,0 +1,260 @@
+{
+  "requestId": "",
+  "dataAsset": "",
+  "assetTitle": "",
+  "ownedBy": "",
+  "status": "NOT STARTED",
+  "completedSections": 0,
+  "overviewSections": {
+    "purpose": {
+      "name": "Purpose of the data share",
+      "steps": [
+        "data-type",
+        "data-subjects",
+        "project-aims",
+        "data-required",
+        "benefits",
+        "data-access",
+        "impact",
+        "date"
+      ]
+    },
+    "legal": {
+      "name": "Legal power and gateway",
+      "steps": ["legal-power", "legal-gateway", "legal-review"]
+    },
+    "dataProtection": {
+      "name": "Data protection",
+      "steps": [
+        "lawful-basis-personal",
+        "lawful-basis-special",
+        "data-travel",
+        "role",
+        "protection-review"
+      ]
+    },
+    "security": {
+      "name": "Data governance, security and technology",
+      "steps": ["delivery", "format", "disposal", "security-review"]
+    },
+    "review": {
+      "name": "Review and send",
+      "steps": ["check"]
+    }
+  },
+  "steps": {
+    "data-type": {
+      "id": "data-type",
+      "name": "Data type",
+      "status": "NOT STARTED",
+      "value": [],
+      "nextStep": "data-subjects"
+    },
+    "data-subjects": {
+      "id": "data-subjects",
+      "name": "Data subjects",
+      "status": "CANNOT START YET",
+      "value": "",
+      "nextStep": "project-aims"
+    },
+    "project-aims": {
+      "id": "project-aims",
+      "name": "Project aims",
+      "status": "NOT STARTED",
+      "value": {
+        "aims": "",
+        "explanation": ""
+      },
+      "nextStep": "data-required"
+    },
+    "data-required": {
+      "id": "data-required",
+      "name": "Data required",
+      "status": "NOT STARTED",
+      "value": "",
+      "nextStep": "benefits"
+    },
+    "benefits": {
+      "id": "benefits",
+      "name": "Benefit to public",
+      "status": "NOT STARTED",
+      "value": [],
+      "nextStep": "data-access"
+    },
+    "data-access": {
+      "id": "data-access",
+      "name": "Other organisations accessing data",
+      "status": "NOT STARTED",
+      "value": "",
+      "nextStep": "other-orgs"
+    },
+    "other-orgs": {
+      "id": "other-orgs",
+      "name": "Other organisations",
+      "status": "NOT STARTED",
+      "value": [""],
+      "nextStep": "impact",
+      "skipped": false
+    },
+    "impact": {
+      "id": "impact",
+      "name": "Impact if data not given",
+      "status": "NOT STARTED",
+      "value": "",
+      "nextStep": "date"
+    },
+    "date": {
+      "id": "date",
+      "name": "Date required",
+      "status": "NOT STARTED",
+      "value": {
+        "day": null,
+        "month": null,
+        "year": null
+      },
+      "nextStep": "legal-power"
+    },
+    "legal-power": {
+      "id": "legal-power",
+      "name": "Legal power",
+      "status": "NOT STARTED",
+      "value": "",
+      "nextStep": "legal-power-advice"
+    },
+    "legal-power-advice": {
+      "id": "legal-power-advice",
+      "name": "Legal power advice",
+      "status": "CANNOT START YET",
+      "value": "",
+      "nextStep": "legal-gateway"
+    },
+    "legal-gateway": {
+      "id": "legal-gateway",
+      "name": "Legal gateway",
+      "status": "NOT STARTED",
+      "value": "",
+      "nextStep": "legal-gateway-advice"
+    },
+    "legal-gateway-advice": {
+      "id": "legal-gateway-advice",
+      "name": "Legal gateway advice",
+      "status": "CANNOT START YET",
+      "value": "",
+      "nextStep": "legal-review"
+    },
+    "legal-review": {
+      "id": "legal-review",
+      "name": "Legal review",
+      "status": "CANNOT START YET",
+      "value": "",
+      "blockedBy": ["legal-power", "legal-gateway"],
+      "nextStep": "lawful-basis-personal"
+    },
+    "lawful-basis-personal": {
+      "id": "lawful-basis-personal",
+      "name": "Lawful basis for personal data",
+      "status": "CANNOT START YET",
+      "value": [],
+      "nextStep": "lawful-basis-special"
+    },
+    "lawful-basis-special": {
+      "id": "lawful-basis-special",
+      "name": "Lawful basis for special category data",
+      "status": "CANNOT START YET",
+      "value": [],
+      "nextStep": "lawful-basis-special-public-interest"
+    },
+    "lawful-basis-special-public-interest": {
+      "id": "lawful-basis-special-public-interest",
+      "name": "Lawful basis",
+      "status": "NOT REQUIRED",
+      "value": [],
+      "nextStep": "data-travel"
+    },
+    "data-travel": {
+      "id": "data-travel",
+      "name": "Data travel outside UK",
+      "status": "NOT STARTED",
+      "value": "",
+      "nextStep": "data-travel-location"
+    },
+    "data-travel-location": {
+      "id": "data-travel-location",
+      "name": "Data travel Location",
+      "status": "NOT STARTED",
+      "value": [""],
+      "nextStep": "role"
+    },
+    "role": {
+      "id": "role",
+      "name": "Role of organisation",
+      "status": "CANNOT START YET",
+      "value": "",
+      "nextStep": "protection-review"
+    },
+    "protection-review": {
+      "id": "protection-review",
+      "name": "Data protection review",
+      "status": "CANNOT START YET",
+      "value": "",
+      "blockedBy": [
+        "lawful-basis-personal",
+        "lawful-basis-special",
+        "data-travel",
+        "role"
+      ],
+      "nextStep": "delivery"
+    },
+    "delivery": {
+      "id": "delivery",
+      "name": "Data delivery",
+      "status": "NOT STARTED",
+      "nextStep": "format",
+      "value": ""
+    },
+    "format": {
+      "id": "format",
+      "name": "Data format",
+      "status": "NOT STARTED",
+      "value": "",
+      "nextStep": "disposal"
+    },
+    "disposal": {
+      "id": "disposal",
+      "name": "Disposal of data",
+      "status": "NOT STARTED",
+      "value": "",
+      "nextStep": "security-review"
+    },
+    "security-review": {
+      "id": "security-review",
+      "name": "Data security review",
+      "status": "CANNOT START YET",
+      "value": "",
+      "blockedBy": ["delivery", "format", "disposal"],
+      "nextStep": "check"
+    },
+    "check": {
+      "id": "check",
+      "name": "Check answers",
+      "status": "CANNOT START YET",
+      "blockedBy": ["legal-review", "protection-review", "security-review"],
+      "nextStep": "declaration",
+      "value": ""
+    },
+    "declaration": {
+      "id": "check",
+      "name": "Declaration",
+      "status": "CANNOT START YET",
+      "nextStep": "confirmation",
+      "value": ""
+    },
+    "confirmation": {
+      "id": "check",
+      "name": "Confirmation",
+      "status": "CANNOT START YET",
+      "nextStep": "start",
+      "value": ""
+    }
+  }
+}

@@ -1,0 +1,75 @@
+{% extends "page.njk" %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <span class="govuk-caption-l">Request ID: {{requestId}}</span>
+ 
+        <form method="POST" id="legalPowerForm">
+            {% set legalPowerDecision %}
+                {{ govukInput({
+                    id: "legal-power-input",
+                    name: "legal-power-input",
+                    label: {
+                        text: "What legal power will you use?"
+                    },
+                    classes: "govuk-!-width-one-half",
+                    value: savedValue['yes']['explanation'],
+                    errorMessage: errorMessage['legal-power-input']
+                }) }}
+            {% endset -%}
+        {{ govukRadios({
+            name: "legal-power",
+            fieldset: {
+                legend: {
+                    text: "Do you have the legal power to request this data?",
+                    isPageHeading: true,
+                    classes: "govuk-fieldset__legend--l"
+                }
+            },
+            hint: {
+                text: "For example, through common law or royal prerogative."
+            },
+            items: 
+            [
+            {
+                value: "yes",
+                text: "Yes, we believe we have the legal power to do this",
+                checked: savedValue['yes']['checked'],
+                conditional: {
+                    html: legalPowerDecision
+                }
+            },
+            {
+                value: "no",
+                text: "No, we don't have the legal power to request this",
+                checked: savedValue['no']['checked']
+            },
+            {
+                value: "we-dont-know",
+                text: "We don't know",
+                checked: savedValue['we-dont-know']['checked']
+            }
+        ],
+        errorMessage: errorMessage['legal-power']
+        }) }}
+        <div class="govuk-button-group">
+            {{ govukButton({
+                text: "Save and continue",
+                name: "continueButton",
+                value: "continue"
+            }) }}
+            {{ govukButton({
+                text: "Save and return",
+                classes: "govuk-button--secondary",
+                name: "returnButton",
+                value: "return"
+            }) }}
+        </div>
+      </form>
+    </div>
+  </div>
+{% endblock %}

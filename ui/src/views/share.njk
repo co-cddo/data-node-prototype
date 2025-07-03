@@ -1,0 +1,39 @@
+{% extends "page.njk" %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-xl">
+         Request {{ resource.title }} data
+      </h1>
+      <p class="govuk-body">You need to answer some questions to make sure your request meets GDPR and data sharing standards.</p>
+      <p class="govuk-body">Your answers will be reviewed by the department that owns the data.</p>
+      <h2 class="govuk-heading-l">
+        Before you start
+      </h2>
+      <p class="govuk-body">Some questions may require support from people with  skills in:</p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>technology</li>
+        <li>data security</li>
+        <li>data protection</li>
+        <li>legal</li>
+        <li>data governance</li>
+      </ul>
+      <p class="govuk-body"><a href="/learn/articles/data-sharing-questions" class="govuk-link govuk-body-m govuk-!-margin-bottom-1">Check questions before you start</a></p>
+    {{ govukButton({
+      html: 'Start now <svg class="govuk-button__start-icon" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewBox="0 0 33 40" aria-hidden="true" focusable="false"><path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z"></path></svg>',
+      href: '/acquirer/' + resource.identifier + '/start',
+      classes: 'large-button'
+    }) }}
+      <br>
+      <br>
+      <h3 class="govuk-heading-m">For more help</h3>
+      <ul class="govuk-list">
+        <li class="govuk-link"><a class="govuk-link" href="/learn/articles/data-sharing-arrangements">How to set up a data share arrangement in government</a></li>
+      </ul>
+    </div>
+  </div>
+
+{% endblock %}

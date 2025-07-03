@@ -1,0 +1,95 @@
+{% extends "page.njk" %}
+{%- from "govuk/components/radios/macro.njk" import govukRadios -%}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <span class="govuk-caption-l">Request ID: {{ requestId }} </span>
+    <form method="POST" id="decisionForm">
+      {% set ReturnWithCommentsHtml %}
+        {{ govukTextarea({
+          id: "return-with-comments-textarea",
+          name: "return-with-comments",
+          value: [],
+          errorMessage: errorMessage['return-with-comments']
+        }) }}
+      {% endset -%}
+      {% set ApproveHtml %}
+        {{ govukTextarea({
+          id: "approve-textarea",
+          name: "approve",
+          value: [],
+          errorMessage: errorMessage['approve']
+        }) }}
+      {% endset -%}
+      {% set RejectHtml %}
+        {{ govukTextarea({
+          id: "reject-textarea",
+          name: "reject",
+          value: [],
+          errorMessage: errorMessage['reject']
+        }) }}
+      {% endset -%}
+      {{ govukRadios({
+        name: "decision",
+        errorMessage: errorMessage["decision"],
+        fieldset: {
+          legend: {
+          text: "What is your decision?",
+          isPageHeading: true,
+          classes: "govuk-fieldset__legend--l"
+          }
+        },
+        hint: {
+          text: "Choose your decision and add your comments. This will be sent to the person or team making the request."
+        },
+        items: [
+            {
+            value: "return",
+            text: "Return with comments",
+            checked: selectedDecisionStatus === "return",
+            hint: {
+              text: "Some details are missing. A decision cannot be made without them. If they provide this information, you will progress the request."
+            },
+            conditional: {
+              html: ReturnWithCommentsHtml
+            }
+            },
+            {
+            value: "approve",
+            text: "Accept data share request",
+            checked: selectedDecisionStatus === "approve",
+            hint: {
+              text: "Approve and arrange a meeting to discuss the next steps."
+            },
+            conditional: {
+              html: ApproveHtml
+            }
+            },
+            {
+            value: "reject",
+            text: "Reject data share request",
+            checked: selectedDecisionStatus === "reject",
+            hint: {
+              text: "There are fundamental problems with this request that cannot be solved. Use the comments box to tell the department why you have rejected their request."
+            },
+            conditional: {
+              html: RejectHtml
+            }
+          }
+        ]
+      }) }}
+      <div class="govuk-button-group">
+        {{ govukButton({
+          text: "Submit",
+          name: "submitButton",
+          value: "submit"
+        }) }}
+        <a href="/manage-shares/received-requests" class="govuk-link">Returned to received requests</a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

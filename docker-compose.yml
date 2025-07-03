@@ -1,0 +1,26 @@
+version: '3.9'
+
+services:
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    container_name: api
+    ports:
+      - "4000:4000" # adjust if your API listens on a different port
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
+    depends_on:
+      - ui
+
+  ui:
+    build:
+      context: ./ui
+      dockerfile: Dockerfile
+    container_name: ui
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped

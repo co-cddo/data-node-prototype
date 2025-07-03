@@ -1,6 +1,6 @@
 const express = require("express");
-const db = require("./db");
-const { verifyToken, requireRole } = require("./middlewares/auth");
+const db = require("../db");
+const { verifyToken, requireRole } = require("../middlewares/auth");
 const router = express.Router();
 
 router.post("/", verifyToken, requireRole(["admin"]), async (req, res) => {

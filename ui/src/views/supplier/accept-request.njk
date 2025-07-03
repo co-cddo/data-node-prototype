@@ -1,0 +1,28 @@
+{% extends "page.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %} 
+{% from "govuk/components/panel/macro.njk" import govukPanel %}
+
+{% set noBackLink = true %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    {{ govukPanel({
+        titleText: "Request accepted",
+        html: requestId 
+    }) }}
+    <p class="govuk-body">{{ requestingOrg }} has been told their request has been accepted and you will contact them to discuss further.</p>
+    <h2 class="govuk-heading-m">What happens next</h2>
+    <p class="govuk-body">Contact <a class="govuk-link" href="mailto:{{ requesterEmail }}" target="_blank">{{requesterEmail}}</a> to start a discussion.</p>
+    <form method="POST" id="requestAcceptForm">
+      <div class="govuk-button-group">
+        {{ govukButton({
+        text: "Return to manage data share requests",
+        name: "returnButton",
+        value: "return"
+        }) }}
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

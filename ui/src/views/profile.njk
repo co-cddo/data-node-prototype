@@ -1,0 +1,24 @@
+{% extends "page.njk" %}
+{% from "govuk/components/table/macro.njk" import govukTable %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+
+      <h1 class="govuk-heading-xl">Account</h1>
+
+      {{ govukTable({
+        captionClasses: "govuk-table__caption--m",
+        firstCellIsHeader: false,
+        rows: profileTableRows
+      }) }}
+      {% if needsToComplete %}
+        <p class="govuk-body">
+          You must <a class="govuk_link" href="/profile/complete">complete your profile</a> before you can create data share requests.
+        </p>
+      {% endif %}
+    </div>
+  </div>
+
+{% endblock %}

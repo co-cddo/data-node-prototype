@@ -1,0 +1,45 @@
+{% extends "page.njk" %}
+{% from "govuk/components/table/macro.njk" import govukTable %}
+{%- from "govuk/components/tag/macro.njk" import govukTag -%}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <span class="govuk-caption-l">Request ID: {{ request.requestId }}</span>
+    <h1 class="govuk-heading-l">{{ request.requestingOrg }} is requesting access to {{ request.sharedata.assetTitle }} data</h1>
+    <h2 class="govuk-heading-m govuk-!-static-margin-bottom-1">Project aims</h2>
+    <p class="govuk-body">{{ request.sharedata.steps["project-aims"].value.aims }}</p>
+    <h2 class="govuk-heading-m govuk-!-static-margin-bottom-1">Received</h2>
+    <p class="govuk-body">{{ request.received }}</p>
+    <h2 class="govuk-heading-m govuk-!-static-margin-bottom-1">Contact</h2>
+    <p class="govuk-body"><a href="mailto:{{ request.sharedata.ownedBy }}" target="_blank" class="govuk-link">{{ request.sharedata.ownedBy }}</a></p>
+    <form method="POST" id="reviewSummaryForm">
+      <div class="govuk-button-group">
+        {{ govukButton({
+            text: "Continue",
+            name: "continueButton",
+            value: "continue"
+        }) }}
+        <a href="/manage-shares/received-requests" class="govuk-link">Returned to received requests</a>
+      </div>
+    </form>
+    <h2 class="govuk-heading-m">More information</h2>
+    {% set detailsContent %}
+    <p>You're about to review a data share request. You'll need to decide if it meets your requirements so you can draft a data sharing agreement with {{ request.requestingOrg }}</p>
+    <p>When you've reviewed the request, you can choose to:</p>
+    <ul>
+      <li>Accept the data share request</li>
+      <li>Reject the data share request</li>
+      <li>Return with comments</li>
+    </ul>
+    {% endset %}
+    {{ govukDetails({
+        summaryText: "Your decision options",
+        text: detailsContent  | safe
+    }) }}
+  </div>
+</div>
+{% endblock %}

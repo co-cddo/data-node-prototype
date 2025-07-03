@@ -1,0 +1,50 @@
+{% extends "page.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <span class="govuk-caption-l">Request ID: {{ request.requestId }}</span>
+      <h1 class="govuk-heading-l">
+        Review {{ request.requestingOrg }}'s request to access {{ request.assetTitle }} data
+      </h1>
+      {% include "../partials/receivedRequestReview.njk" %}
+    </div>
+  </div>
+
+  <div class="request-section ">
+    <div class="govuk-grid-row govuk-!-margin-top-4">
+      <div class="govuk-grid-column-two-thirds">
+        <form method="POST" id="reviewNotesForm">
+          {{ govukTextarea({
+      name: "notes",
+      id: "notes",
+      label: {
+        text: "Notes (not shared with " + request.requestingOrg + ")",
+        classes: "govuk-label--l",
+        isPageHeading: false
+      },
+      hint: {
+        text: "Do not include personal or financial information, like your National Insurance number or credit card details."
+      },
+      value: request.reviewNotes
+    }) }}
+
+          {{ govukButton({
+        text: "Continue",
+        name: "continueButton",
+        value: "continue"
+      }) }}
+          {{ govukButton({
+        text: "Return to summary",
+        name: "returnButton",
+        value: "return",
+        classes: "govuk-button--secondary"
+      }) }}
+        </form>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

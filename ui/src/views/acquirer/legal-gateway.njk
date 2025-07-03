@@ -1,0 +1,113 @@
+{% extends "page.njk" %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{%- from "govuk/components/textarea/macro.njk" import govukTextarea -%}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+    <span class="govuk-caption-l">Request ID: {{requestId}}</span>
+          
+        <form method="POST" id="legalGatewayForm">       
+        {% set legalGatewayDecision1 %}
+        {{ govukTextarea({
+            id: "yes",
+            name: "yes",
+            type: "text",
+            classes: "govuk-!-width-two-third",
+            label: {
+                text: "What is the legal gateway for acquiring this data?"
+            },
+            value: savedValue['yes']['explanation'],
+            errorMessage: errorMessage['yes']
+
+        }) }}
+        {% endset -%}
+
+        {% set legalGatewayDecision2 %}
+        {{ govukTextarea({
+            id: "other",
+            name: "other",
+            type: "text",
+            classes: "govuk-!-width-two-third",
+            label: {
+                text: "What other legal grounds do you have for acquiring this data?"
+            },
+            value: savedValue['other']['explanation'],
+            errorMessage: errorMessage['other']
+        }) }}
+        {% endset -%}
+
+        {{ govukRadios({
+        name: "legal-gateway",
+        fieldset: {
+            legend: {
+            text: "Is there a 'legal gateway' for acquiring this data?",
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--l"
+            }
+        },
+        hint: {
+            text: "Your legal advisor may be asked to support this."
+        },
+        items: [
+            {
+            value: "yes",
+            text: "Yes, there is a legal gateway for acquiring this data",
+            checked: savedValue['yes']['checked'],
+            conditional: {
+                html: legalGatewayDecision1
+            }
+            },
+            {
+            value: "other",
+            text: "We have other legal grounds for acquiring this data",
+            checked: savedValue['other']['checked'],
+            conditional: {
+                html: legalGatewayDecision2
+            }
+            },
+            {
+            value: "we-dont-know",
+            text: "We don't know",
+            checked: savedValue['we-dont-know']['checked']
+            }
+        ],
+        errorMessage: errorMessage['legal-gateway']
+        }) }}
+
+        <div class="govuk-button-group">
+        {{ govukButton({
+            text: "Save and continue",
+            name: "continueButton",
+            value: "continue"
+        }) }}
+        {{ govukButton({
+            text: "Save and return",
+            classes: "govuk-button--secondary",
+            name: "returnButton",
+            value: "return"
+        }) }}
+        </div>
+
+        {% set detailsContent %}
+        <p>Legal gateways allow specified public authorities to share data with each other.</p>
+        <p>Some gateways enable the sharing of personal data, while others allow the sharing of non-identifying data.</p>
+        <p>Disclosing information through a legal gateway is often outlined in jointly agreed documents, for example in:</p>
+        <ul>
+            <li>a memorandum of understanding (MOU)</li>
+            <li>a protocol</li>
+            <li>a partnership agreement</li>
+            <li>a statement of practice</li>
+            <li>a code of practice</li>
+        </ul>
+        {% endset %}
+        {{ govukDetails({
+            summaryText: "What is a legal gateway?",
+            text: detailsContent  | safe
+        }) }}
+        </form>
+    </div>
+</div>
+{% endblock %}

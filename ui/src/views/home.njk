@@ -1,0 +1,29 @@
+{% extends "layouts/base.njk" %}
+{% set home = true %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-third-from-desktop govuk-!-margin-bottom-8">
+    <h2 class="govuk-heading-l govuk-!-font-weight-bold">Find data assets</h2>
+    <p class="govuk-body">Find data assets from  government organisations. Personal and special category data is available.</p>
+    <a href="/find" class="govuk-button" data-module="govuk-button">
+      Find data assets
+    </a>
+  </div>
+  <div class="govuk-grid-column-one-third-from-desktop govuk-!-margin-bottom-8">
+    <h2 class="govuk-heading-l">Manage data shares</h2>
+    <p class="govuk-body">Set up and manage your data shares so you can share your data assets with other government organisations.</p>
+    <a href="{{assetpath}}/manage-shares" class="govuk-button" data-module="govuk-button">
+      Manage data shares
+    </a>
+  </div>
+  <div class="govuk-grid-column-one-third-from-desktop govuk-!-margin-bottom-8">
+    <h2 class="govuk-heading-l">Publish data descriptions</h2>
+    <p class="govuk-body">Publish a description of your data assets so they can be found by other government organisations.</p>
+    <a href="{{assetpath}}/publish/publish-dashboard" class="govuk-button" data-module="govuk-button">
+      Publish data descriptions
+    </a>
+  </div>
+{% include "partials/learnBanner.njk" %}
+  
+{% endblock %}
