@@ -99,7 +99,7 @@ const buildScss = async () => {
         ".jpg": "file",
         ".svg": "file",
       },
-      minify: true,
+      minify: false,
       sourcemap: true,
     })
     .catch((error) => {

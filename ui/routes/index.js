@@ -1,5 +1,5 @@
 import express from "express";
-import { Auth } from "../middleware/setupAuth";
+import { authenticateJWT } from "../middleware/authMiddleware";
 import { cookieRouter } from "./cookieRoutes";
 const router = express.Router();
 
@@ -14,7 +14,7 @@ router.get("/record/add", (req, res) => {
   res.render("main/add_record");
 });
 
-router.post("/record/add", Auth, (req, res) => {
+router.post("/record/add", authenticateJWT, (req, res) => {
   const {
     addressLine1 = "",
     addressLine2 = "",

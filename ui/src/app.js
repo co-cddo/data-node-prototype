@@ -1,5 +1,8 @@
 import express from "express";
-import chalk from "chalk";
+import https from "https";
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
 import morgan from "morgan";
 import compression from "compression";
 import {
@@ -18,7 +21,7 @@ import {
 import config from "../config";
 import indexRouter from "../routes/index";
 import livereload from "connect-livereload";
-import { Auth } from "../middleware/setupAuth";
+import { authenticateJWT } from "../middleware/authMiddleware";
 
 const app = express();
 
@@ -29,10 +32,14 @@ const app = express();
 setupMiddlewares(app);
 
 app.use(axiosMiddleware);
-// setupAuth(app);
-app.use(Auth);
-// Set up DB to be used in requests
-
+app.use(
+  session({
+    secret: "super-secretoken",
+    resave: false,
+    saveUninitialized: false,
+    cookie: { maxAge: oneDay },
+  })
+);
 app.use(
   compression({
     /**
@@ -69,14 +76,7 @@ app.disable("x-powered-by");
  * Configures session management with secure cookie settings and session IDs.
  */
 app.set("trust proxy", 1); // trust first proxy
-app.use(
-  session({
-    secret: "s3Cur3", // Secret for session encryption
-    name: "sessionId", // Custom session ID cookie name
-    resave: false, // Prevents resaving unchanged sessions
-    saveUninitialized: false, // Only save sessions that are modified
-  })
-);
+const oneDay = 1000 * 60 * 60 * 24;
 
 app.use(handleCookies);
 /**
@@ -128,10 +128,25 @@ if (process.env.NODE_ENV === "development") {
   app.use(livereload());
 }
 
+// Load the cert and key
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const options = {
+  key: fs.readFileSync(
+    path.join(__dirname, "../../fast.dm.cddo.cabinetoffice.gov.uk-key.pem")
+  ),
+  cert: fs.readFileSync(
+    path.join(__dirname, "../../fast.dm.cddo.cabinetoffice.gov.uk.pem")
+  ),
+};
+
 /**
  * Starts the Express server on the specified port.
  * Logs the port number to the console upon successful startup.
  */
-app.listen(config.app.port, () => {
-  console.log(chalk.yellow(`Listening on port ${config.app.port}...`));
+
+https.createServer(options, app).listen(config.app.port, () => {
+  console.log(
+    `HTTPS Server running at https://fast.dm.cddo.cabinetoffice.gov.uk:${config.app.port}/`
+  );
 });
