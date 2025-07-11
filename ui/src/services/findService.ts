@@ -1,10 +1,5 @@
 import axios from "axios";
-import {
-  SingleApiResponse,
-  ApiResponse,
-  CatalogueItem,
-  Organisation,
-} from "../models/dataModels";
+
 import { getLicenceTitleFromURL } from "../helperFunctions/formHelper";
 
 export async function fetchResources(
@@ -12,7 +7,7 @@ export async function fetchResources(
   organisationFilters?: string[],
   themeFilters?: string[],
 ): Promise<{
-  resources: CatalogueItem[];
+  resources: any[];
 }> {
   const orgSearch =
     organisationFilters?.map((o) => `&organisation=${o}`).join("") || "";
@@ -26,7 +21,7 @@ export async function fetchResources(
     );
   }
 
-  const response = await axios.get<ApiResponse>(apiUrl as string);
+  const response = await axios.get<any>(apiUrl as string);
   const resources = response.data.data;
 
   return {

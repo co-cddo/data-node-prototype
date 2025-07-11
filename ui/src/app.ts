@@ -2,23 +2,14 @@ import express, { NextFunction, Request, Response } from "express";
 import dotenv from "dotenv";
 dotenv.config();
 import nunjucks from "nunjucks";
-import { authenticateJWT } from "./middleware/authMiddleware";
 import markdown from "nunjucks-markdown";
 import marked from "marked";
 import helmet from "helmet";
 import homeRoute from "./routes/homeRoute";
-import learnRoute from "./routes/learnRoute";
-import learnArticleRoutes from "./routes/learnArticleRoutes";
 import adminRoutes from "./routes/adminRoutes";
-import findRoutes from "./routes/findRoutes";
-import shareRoutes from "./routes/shareRoutes";
-import acquirerRoutes from "./routes/acquirerRoutes";
 import cookieRoutes from "./routes/cookieRoutes";
 import loginRoutes from "./routes/loginRoutes";
 import authRoutes from "./routes/authRoutes";
-import profileRoutes from "./routes/profileRoutes";
-import manageRoutes from "./routes/supplierRoutes";
-import publisherRoutes from "./routes/publisherRoutes";
 import infoRoutes from "./routes/infoRoutes";
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
@@ -32,7 +23,6 @@ import {
   JwtStrategy,
   modifyApplicationMiddleware,
 } from "./middleware/authMiddleware";
-import { apiUser, apiUserWithOrganisation } from "./middleware/apiMiddleware";
 
 export const app = express();
 // Set up security headers with Helmet
@@ -127,34 +117,10 @@ app.use(backLink);
 app.use("/", loginRoutes);
 app.use("/auth", authRoutes);
 app.use("/", homeRoute);
-app.use("/profile", authenticateJWT, profileRoutes);
-app.use("/find", findRoutes);
-app.use("/share", authenticateJWT, shareRoutes);
-app.use(
-  "/acquirer",
-  authenticateJWT,
-  apiUser,
-  apiUserWithOrganisation,
-  acquirerRoutes,
-);
-app.use(
-  "/manage-shares",
-  authenticateJWT,
-  apiUser,
-  apiUserWithOrganisation,
-  manageRoutes,
-);
+
 app.use("/cookie-settings", cookieRoutes);
-app.use("/learn", learnRoute);
-app.use("/learn/articles", learnArticleRoutes);
 app.use("/admin", adminRoutes);
-app.use(
-  "/publish",
-  authenticateJWT,
-  apiUser,
-  apiUserWithOrganisation,
-  publisherRoutes,
-);
+
 app.use("/", infoRoutes);
 
 // Error handling

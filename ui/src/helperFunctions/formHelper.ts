@@ -20,9 +20,6 @@ import {
   FormData,
   GenericStringArray,
 } from "../types/express";
-import { licences } from "../mockData/licences";
-import { replace } from "./checkhelper";
-import { formatDate } from "./stringHelpers";
 export const updateStepsStatus = (
   currentStep: string,
   stepValue: StepValue,

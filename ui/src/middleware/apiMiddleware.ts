@@ -2,7 +2,6 @@ import axios from "axios";
 import { NextFunction, Request, Response } from "express";
 import { ApiUser } from "../models/apiUser";
 import { ShareRequestResponse } from "../types/express";
-import { formatDate } from "../helperFunctions/stringHelpers";
 
 const API = `${process.env.API_ENDPOINT}`;
 
